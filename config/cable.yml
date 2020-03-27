@@ -1,10 +1,10 @@
 development:
-  adapter: async
+  adapter: Postgresql
 
 test:
-  adapter: async
+  adapter: Postgresql
 
 production:
-  adapter: redis
+  adapter: Postgresql
   url: redis://localhost:6379/1
   channel_prefix: rails-app_production

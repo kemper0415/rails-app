@@ -1,0 +1,31 @@
+run.config:
+  engine: ruby
+  engine.config:
+    runtime: ruby-2.2
+  cache_dirs:
+    - vendor
+
+deploy.config:
+  transform:
+    - 'bundle exec rake fix-yaml'
+
+web.site:
+  start: 'bundle exec puma -c config/puma.conf'
+  network_dirs:
+    data.storage:
+      - usr/uploads
+
+worker.jobs:
+  start: 'ruby workers/image_processor.rb'
+  network_dirs:
+    data.storage:
+      - usr/uploads
+
+data.db:
+  image: nanobox/postgresql:9.5
+
+data.storage:
+  image: nanobox/unfs:0.9
+
+data.queue:
+  image: nanobox/redis:3.0
